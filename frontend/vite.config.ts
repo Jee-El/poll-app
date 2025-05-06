@@ -11,4 +11,8 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    build: {
+        outDir: "../backend/polls/static/frontend/dist",
+        emptyOutDir: true,
+    },
 });
