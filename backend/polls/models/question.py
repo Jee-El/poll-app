@@ -8,4 +8,4 @@ class Question(models.Model):
     deadline = models.DateTimeField("Ends on")
 
     def __str__(self):
-        return Question.question_txt
+        return self.question_txt

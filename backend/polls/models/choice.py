@@ -8,4 +8,4 @@ class Choice(models.Model):
     votes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return Choice.choice_txt
+        return self.choice_txt
