@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt",
+    "corsheaders",
     "polls.apps.PollsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
