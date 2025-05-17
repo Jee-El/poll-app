@@ -1,7 +1,6 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
 
 urlpatterns = [
-    path("", views.getPolls, name="getPolls"),
-    path("<int:pollId>/", views.getPoll, name="getPoll"),
+    path("", include("polls.api.polls.urls")),
+    path("auth/", include("polls.api.auth.urls")),
 ]

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from decouple import config
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +34,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt",
+    "corsheaders",
     "polls.apps.PollsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,15 +45,42 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ),
+    "DEFAULT_RENDERER_CLASSES": (
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+    "SLIDING_TOKEN_LIFETIME": timedelta(days=30),
+    "SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER": timedelta(days=1),
+    "SLIDING_TOKEN_LIFETIME_LATE_USER": timedelta(days=30),
+}
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 ROOT_URLCONF = "mysite.urls"
 
