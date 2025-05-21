@@ -1,10 +1,13 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Question(models.Model):
     question_txt = models.CharField(max_length=90)
     description = models.CharField(max_length=220)
+    allows_multiple_choices = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField("Published on", default=timezone.now)
     deadline = models.DateTimeField("Ends on")
 
