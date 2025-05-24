@@ -3,9 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Question(models.Model):
-    question_txt = models.CharField(max_length=90)
-    description = models.CharField(max_length=220)
+class Poll(models.Model):
+    question = models.CharField(max_length=90)
+    description = models.CharField(max_length=220, default="")
     allows_multiple_choices = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField("Published on", default=timezone.now)
