@@ -1,13 +1,23 @@
-from random import choice
 from rest_framework import serializers
-
+from polls.models.choice import Choice
+from . import ChoiceSerializer
 from polls.models import Poll
 
 
 class PollSerializer(serializers.ModelSerializer):
+    choices = ChoiceSerializer(many=True)
+
     class Meta:
         model = Poll
         fields = "__all__"
+
+    def create(self, validated_data):
+        choices_data = validated_data.pop("choices")
+        poll = Poll.objects.create(**validated_data)
+
+        for choice_data in choices_data:
+            Choice.objects.create(poll=poll, **choice_data)
+        return poll
 
     def validate(self, data):
         super().validate(data)
