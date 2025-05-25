@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.getPolls, name="getPolls"),
-    path("<int:pollId>/", views.getPoll, name="getPoll")
+    path("<int:id>/", views.getPoll, name="getPoll"),
+    path("create/", views.create, name="create"),
 ]
