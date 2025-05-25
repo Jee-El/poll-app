@@ -8,14 +8,14 @@ from ..serializers import SignupSerializer
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def signup(request):
-    user = SignupSerializer(data=request.data)
+    serializer = SignupSerializer(data=request.data)
 
-    if user.is_valid():
-        user.save()
+    if serializer.is_valid():
+        serializer.save()
 
         return Response(
             {"status": "success", "message": "User registered successfully"},
             status=status.HTTP_201_CREATED,
         )
 
-    return Response(user.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
