@@ -11,7 +11,6 @@ class Poll(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField("Published on", default=timezone.now)
     deadline = models.DateTimeField("Ends on")
-    is_active = models.BooleanField()
 
     class Meta:
         constraints = [
@@ -19,6 +18,10 @@ class Poll(models.Model):
                 condition=Q(deadline__gt=F("created_at")), name="deadline_not_in_past"
             )
         ]
+
+    @property
+    def is_active(self):
+        return self.deadline > timezone.now()
 
     def __str__(self):
         return self.question
