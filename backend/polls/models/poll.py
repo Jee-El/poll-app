@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.db.models.functions import Now
 from django.db.models import Q, F
 
 
@@ -18,12 +17,7 @@ class Poll(models.Model):
         constraints = [
             models.CheckConstraint(
                 condition=Q(deadline__gt=F("created_at")), name="deadline_not_in_past"
-            ),
-            models.CheckConstraint(
-                condition=Q(is_active=False, deadline__gte=Now())
-                | Q(is_active=True, deadline__lt=Now()),
-                name="is_active_matches_deadline",
-            ),
+            )
         ]
 
     def __str__(self):
