@@ -8,6 +8,6 @@ from polls.models import Poll
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getPolls(request):
-    polls = Poll.objects.prefetch_related("choices").all()
+    polls = Poll.objects.prefetch_related("choice_set").all()
     serializedPolls = PollSerializer(polls, many=True)
     return Response(serializedPolls.data)
