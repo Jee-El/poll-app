@@ -2,7 +2,6 @@ from rest_framework import serializers
 from polls.models.choice import Choice
 from . import ChoiceSerializer
 from polls.models import Poll
-from django.utils import timezone
 
 
 class PollSerializer(serializers.ModelSerializer):
