@@ -8,11 +8,12 @@ from django.utils import timezone
 class PollSerializer(serializers.ModelSerializer):
     choice_set = ChoiceSerializer(many=True)
     user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    is_active = serializers.ReadOnlyField()
 
     class Meta:
         model = Poll
         fields = "__all__"
-        read_only_fields = ["user", "created_at"]
+        read_only_fields = ["user", "created_at", "is_active"]
 
     def create(self, validated_data):
         choices_data = validated_data.pop("choice_set")
