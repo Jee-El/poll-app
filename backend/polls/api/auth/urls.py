@@ -3,9 +3,9 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
+    TokenBlacklistView,
 )
 
-from polls.api.auth.views import whoami
 from . import views
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path("refresh_token/", TokenRefreshView.as_view(), name="refresh_token"),
     path("verify_token/", TokenVerifyView.as_view(), name="verify_token"),
     path("whoami/", views.whoami, name="whoami"),
+    path("logout/", TokenBlacklistView.as_view(), name="logout"),
 ]
