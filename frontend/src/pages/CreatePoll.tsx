@@ -25,8 +25,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../components/ui/select";
-import { calculateDeadline, formatTimeRemaining } from "../lib/utils";
-import { formatISO } from "date-fns";
+import { calculateDeadline } from "../lib/utils";
 
 interface FormData {
     question: string;
